@@ -51,9 +51,9 @@ Just make sure that every link that you pass to the class links to an element th
 <a href="#section-2">Section 2</a>
 <a href="#section-3">Section 3</a>
 
-<section id="#section-1">…</section
-<section id="#section-2">…</section
-<section id="#section-3">…</section
+<section id="#section-1">…</section>
+<section id="#section-2">…</section>
+<section id="#section-3">…</section>
 ```
 
 ## Options
