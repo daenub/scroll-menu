@@ -66,7 +66,7 @@ You can set that with the `offsetMediaQueries` argument.
 
 Just pass an array of objects which contain…
 * `mediaQuery` – string – condition when to apply the following values
-* scrollOffset – number – is applied when navigating to a target
+* `scrollOffset` – number – is applied when navigating to a target
 * [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin) – string – for the IntersectionObserver
 
 The order of the array is important. The script just looks for the first matching media query.
