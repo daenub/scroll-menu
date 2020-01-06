@@ -17,6 +17,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var ANCHOR_REGEX = /^#.*$/;
+
 var ScrollMenu =
 /*#__PURE__*/
 function () {
@@ -60,10 +62,13 @@ function () {
     this.elements = links.reduce(function (acc, link) {
       var targetSelector = _this._getKeyFromLink(link);
 
-      acc[targetSelector] = {
-        link: link,
-        target: document.querySelector(targetSelector)
-      };
+      if (_this._testAnchorString(targetSelector)) {
+        acc[targetSelector] = {
+          link: link,
+          target: document.querySelector(targetSelector)
+        };
+      }
+
       return acc;
     }, {});
     this.offsetMediaQueries = offsetMediaQueries.map(function (omq) {
@@ -92,14 +97,17 @@ function () {
       return "#" + target.id;
     }
   }, {
+    key: "_testAnchorString",
+    value: function _testAnchorString(value) {
+      return ANCHOR_REGEX.test(value);
+    }
+  }, {
     key: "_connectIntersectionObserver",
     value: function _connectIntersectionObserver() {
       var _this2 = this;
 
       this.intersectionObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-          console.log(entry.target, entry.intersectionRatio);
-
           _this2._updateLinkState(_this2.elements[_this2._getKeyFromTarget(entry.target)], entry.isIntersecting && entry.intersectionRatio >= 0.5);
         });
       }, {
