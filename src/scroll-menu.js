@@ -1,3 +1,5 @@
+const ANCHOR_REGEX = /^#.*$/
+
 export class ScrollMenu {
   constructor({links, offsetMediaQueries = []}) {
     this.intersectionObserver = null
@@ -7,9 +9,11 @@ export class ScrollMenu {
     this.elements = links.reduce((acc, link) => {
       const targetSelector = this._getKeyFromLink(link)
 
-      acc[targetSelector] = {
-        link,
-        target: document.querySelector(targetSelector),
+      if (this._testAnchorString(targetSelector)) {
+        acc[targetSelector] = {
+          link,
+          target: document.querySelector(targetSelector),
+        }
       }
 
       return acc
@@ -38,11 +42,14 @@ export class ScrollMenu {
     return "#" + target.id
   }
 
+  _testAnchorString(value) {
+    return ANCHOR_REGEX.test(value)
+  }
+
   _connectIntersectionObserver() {
     this.intersectionObserver = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          console.log(entry.target, entry.intersectionRatio)
           this._updateLinkState(
             this.elements[this._getKeyFromTarget(entry.target)],
             entry.isIntersecting && entry.intersectionRatio >= 0.5
