@@ -1,6 +1,6 @@
 # 📜 scroll-menu
 
-A "simple" scroll menu using IntersectionObserver and smooth scrolling
+A scroll menu using IntersectionObserver and smooth scrolling
 
 ## Requirements
 
